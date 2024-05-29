@@ -30,7 +30,8 @@ const App = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-  const backgroundLocation = location.state?.background;
+  const locationState = location.state as { background?: Location };
+  const background = locationState && locationState.background;
 
   // Запрос на получение информации о пользователе и ингредиентах при монтировании компонента
   useEffect(() => {
@@ -40,17 +41,17 @@ const App = () => {
 
   // Функция для закрытия модального окна
   const closeModal = useCallback(() => {
-    if (backgroundLocation) {
-      navigate(backgroundLocation.pathname);
+    if (background) {
+      navigate(background.pathname);
     } else {
       navigate(-1);
     }
-  }, [navigate, backgroundLocation]);
+  }, [navigate, background]);
 
   return (
     <div className={styles.app}>
       <AppHeader />
-      <Routes location={backgroundLocation || location}>
+      <Routes location={background || location}>
         <Route path='/' element={<ConstructorPage />} />
         <Route path='/ingredients/:id' element={<IngredientDetails />} />
         <Route path='/feed' element={<Feed />} />
@@ -113,7 +114,7 @@ const App = () => {
         />
         <Route path='*' element={<NotFound404 />} />
       </Routes>
-      {backgroundLocation && (
+      {background && (
         <Routes>
           <Route
             path='/feed/:number'

@@ -17,7 +17,8 @@ export const ProtectedRoute = ({
   const fromPage = location.state?.from || { pathname: '/' };
 
   const user = useSelector(selectUserData);
-  const backgroundLocation = location.state?.state || null;
+  const locationState = location.state as { background?: Location };
+  const background = locationState && locationState.background;
 
   if (!isAuthChecked && !onlyUnAuth) {
     return <Navigate to='/login' state={{ from: location }} />;
@@ -26,5 +27,6 @@ export const ProtectedRoute = ({
   if (onlyUnAuth && isAuthChecked) {
     return <Navigate replace to={fromPage} />;
   }
+
   return children;
 };

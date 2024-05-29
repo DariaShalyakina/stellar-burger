@@ -12,23 +12,28 @@ export const Register: FC = () => {
   const [userName, setUserName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [errorText, setErrorText] = useState('');
 
-  const handleSubmit = (e: SyntheticEvent) => {
+  const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
 
-    dispatch(
-      registerUser({
-        name: userName,
-        email,
-        password
-      })
-    );
-    navigate('/login');
+    try {
+      await dispatch(
+        registerUser({
+          name: userName,
+          email,
+          password
+        })
+      );
+      navigate('/login'); // Регистрация прошла успешно, перенаправляем на страницу входа
+    } catch (error) {
+      setErrorText('Что-то пошло не так'); // В случае ошибки выводим сообщение об ошибке
+    }
   };
 
   return (
     <RegisterUI
-      errorText=''
+      errorText={errorText}
       email={email}
       userName={userName}
       password={password}
