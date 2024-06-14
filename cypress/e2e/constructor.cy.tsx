@@ -1,6 +1,8 @@
 // тесты для страницы конструктора бургера
 describe('тестируем конструктор', () => {
   const testURL = 'http://localhost:4000';
+  const modalSelector = '[data-cy="modal"]';
+
   beforeEach(() => {
     cy.visit(testURL);
     cy.intercept('GET', '/api/ingredients', { fixture: 'ingredients.json' }).as(
@@ -32,31 +34,31 @@ describe('тестируем конструктор', () => {
   describe('работа модальных окон', () => {
     it('должно открывать модальное окно ингредиента', () => {
       cy.get('[data-cy="Флюоресцентная булка R2-D3"]').click();
-      cy.get('[data-cy="modal"]').should('contain.text', 'Детали ингредиента');
+      cy.get(modalSelector).should('contain.text', 'Детали ингредиента');
     });
 
     it('отображение деталей ингредиента в модальном окне', () => {
       cy.get('[data-cy="Говяжий метеорит (отбивная)"]').click();
-      cy.get('[data-cy="modal"]').should(
+      cy.get(modalSelector).should(
         'contain.text',
         'Говяжий метеорит (отбивная)'
       );
-      cy.get('[data-cy="modal"]').should('contain.text', 'Калории, ккал');
-      cy.get('[data-cy="modal"]').should('contain.text', '2674');
+      cy.get(modalSelector).should('contain.text', 'Калории, ккал');
+      cy.get(modalSelector).should('contain.text', '2674');
     });
 
     it('закрытие модального окна по клику на крестик', () => {
       cy.get('[data-cy="Флюоресцентная булка R2-D3"]').click();
-      cy.get('[data-cy="modal"]').should('be.visible');
+      cy.get(modalSelector).should('be.visible');
       cy.get('[data-cy="buttonOnClose"]').click();
-      cy.get('[data-cy="modal"]').should('not.exist');
+      cy.get(modalSelector).should('not.exist');
     });
 
     it('закрытие модального окна клику на оверлей', () => {
       cy.get('[data-cy="Флюоресцентная булка R2-D3"]').click();
-      cy.get('[data-cy="modal"]').should('be.visible');
+      cy.get(modalSelector).should('be.visible');
       cy.get('[data-cy="modal-overlay"]').click({ force: true });
-      cy.get('[data-cy="modal"]').should('not.exist');
+      cy.get(modalSelector).should('not.exist');
     });
   });
 
