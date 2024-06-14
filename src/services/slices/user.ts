@@ -6,7 +6,7 @@ import {
   logoutApi,
   registerUserApi,
   updateUserApi
-} from '@api';
+} from '../../utils/burger-api';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { TUser } from '@utils-types';
 import { deleteCookie, setCookie } from '../../utils/cookie';
@@ -20,7 +20,7 @@ export type TUserState = {
 };
 
 // Определение начального состояния
-const initialState: TUserState = {
+export const initialState: TUserState = {
   authChecked: false,
   isLoading: false,
   user: null,
@@ -67,7 +67,7 @@ export const logoutUser = createAsyncThunk('user/logout', async () =>
 );
 
 // Слайс пользователя
-const userSlice = createSlice({
+export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
@@ -133,6 +133,7 @@ const userSlice = createSlice({
         state.user = payload.user;
         state.isLoading = false;
         state.userError = null;
+        state.authChecked = true;
       })
       .addCase(updateUser.rejected, (state, { error }) => {
         state.isLoading = false;

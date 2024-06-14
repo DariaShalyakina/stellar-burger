@@ -21,7 +21,7 @@ export const postOrder = createAsyncThunk(
 );
 
 // slice состояния для управления состоянием заказа пользователя
-const userOrderSlice = createSlice({
+export const userOrderSlice = createSlice({
   name: 'userOrder',
   initialState: initialState,
   selectors: {

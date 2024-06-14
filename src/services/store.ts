@@ -14,7 +14,7 @@ import { ordersReducer } from './slices/orders';
 import { userOrderReducer } from './slices/order';
 
 // один корневой редьюсер
-const rootReducer = combineReducers({
+export const rootReducer = combineReducers({
   user: userReducer,
   burgerConstructor: burgerConstructorReducer,
   ingredients: ingredientsReducer,
