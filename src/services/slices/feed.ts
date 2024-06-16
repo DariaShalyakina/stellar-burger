@@ -1,6 +1,6 @@
 // Импорт необходимых функций из Redux Toolkit и других модулей
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { getFeedsApi } from '@api';
+import { getFeedsApi } from '../../utils/burger-api';
 import { TOrder } from '@utils-types';
 
 // Интерфейс для состояния
@@ -13,7 +13,7 @@ interface FeedState {
 }
 
 // Начальное состояние
-const initialState: FeedState = {
+export const initialState: FeedState = {
   orders: [],
   total: 0,
   totalToday: 0,
@@ -27,7 +27,7 @@ export const getFeeds = createAsyncThunk('feed/getFeeds', async () =>
 );
 
 // Slice состояния данных о заказах
-const feedSlice = createSlice({
+export const feedSlice = createSlice({
   name: 'feed', // Название среза
   initialState, // Использование начального состояния
   reducers: {}, // Редукторы (в данном случае отсутствуют)

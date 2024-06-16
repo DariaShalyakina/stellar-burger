@@ -12,7 +12,7 @@ export type TBurgerConstructorState = {
 };
 
 // Начальное состояние
-const initialState: TBurgerConstructorState = {
+export const initialState: TBurgerConstructorState = {
   items: {
     bun: null,
     ingredients: []
@@ -22,7 +22,7 @@ const initialState: TBurgerConstructorState = {
 };
 
 // slice состояния для конструктора
-const burgerConstructor = createSlice({
+export const burgerConstructor = createSlice({
   name: 'burgerConstructor',
   initialState: initialState,
   selectors: {
